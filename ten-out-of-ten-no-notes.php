@@ -10,7 +10,7 @@
  * Author URI:        https://aaron.jorb.in
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       tenoutoften
+ * Text Domain:       ten-out-of-ten-no-notes
  *
  * @package TenOutOfTen_No_Notes
  */
