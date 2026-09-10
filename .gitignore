@@ -7,6 +7,10 @@
 
 # Build / tooling
 /build/
+/artifacts/
+/playwright-report/
+/test-results/
+/blob-report/
 .phpunit.result.cache
 .phpunit.cache/
 .phpcs.cache

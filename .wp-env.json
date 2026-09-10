@@ -3,7 +3,8 @@
 	"core": null,
 	"plugins": [ "." ],
 	"mappings": {
-		"wp-content/plugins/ten-out-of-ten-no-notes": "."
+		"wp-content/plugins/ten-out-of-ten-no-notes": ".",
+		"wp-content/plugins/tenoutoften-e2e-keep-notes": "./tests/e2e/plugins/tenoutoften-e2e-keep-notes"
 	},
 	"port": 60987,
 	"testsPort": 60988,

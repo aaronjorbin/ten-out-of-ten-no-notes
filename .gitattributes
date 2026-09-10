@@ -7,6 +7,7 @@
 /.github               export-ignore
 /.wp-env.json          export-ignore
 /.wp-env.override.json export-ignore
+/node_modules          export-ignore
 /tests                 export-ignore
 /composer.json         export-ignore
 /composer.lock         export-ignore
@@ -16,3 +17,5 @@
 /phpstan.neon.dist     export-ignore
 /phpunit.xml.dist      export-ignore
 /phpunit-integration.xml.dist export-ignore
+/playwright.config.js  export-ignore
+/artifacts             export-ignore

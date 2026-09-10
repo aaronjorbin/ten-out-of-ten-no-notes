@@ -14,6 +14,8 @@ parameters:
 			- tests/wp-stubs.php
 			# Needs the WordPress test-suite classes; only ever runs inside wp-env.
 			- tests/integration
+			# Browser-test fixtures; loaded by WordPress inside wp-env only.
+			- tests/e2e/plugins
 	stubFiles:
 		- tests/phpstan-stubs.php
 	scanDirectories:

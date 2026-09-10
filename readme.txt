@@ -83,14 +83,17 @@ analysis. The dev tooling (PHPUnit 9, PHPCS, PHPStan) needs PHP 7.4 or newer:
     composer check          # lint + analyze + test
     composer coverage       # line coverage (needs Xdebug, PCOV, or phpdbg)
 
-Integration tests run inside wp-env against real WordPress:
+Integration and browser end-to-end tests run inside wp-env against real
+WordPress (the E2E suite uses @wordpress/e2e-test-utils-playwright and needs
+`npx playwright install chromium` once):
 
     npm run env:start
     npm run test:integration
+    npm run test:e2e
 
 GitHub Actions runs the unit suite (PHP 7.4–8.3), coding standards, static
-analysis, and the integration tests against both the latest stable WordPress and
-trunk on every push and pull request.
+analysis, and the integration + E2E suites against both the latest stable
+WordPress and trunk on every push and pull request.
 
 == Changelog ==
 
@@ -99,7 +102,8 @@ trunk on every push and pull request.
   specific post types.
 * Skip the `init` sweep on front-end and cron requests, where Notes support is
   never read.
-* Add a WordPress integration test suite and GitHub Actions (latest + trunk).
+* Add WordPress integration and Playwright E2E test suites, plus GitHub Actions
+  running everything against the latest stable WordPress and trunk.
 * Reworded the description: the plugin disables *adding* Notes; existing note
   comments are untouched.
 

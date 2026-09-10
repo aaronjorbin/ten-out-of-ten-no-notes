@@ -5,6 +5,8 @@
 	"license": "GPL-2.0-or-later",
 	"private": true,
 	"devDependencies": {
+		"@playwright/test": "1.63.0",
+		"@wordpress/e2e-test-utils-playwright": "2.0.0",
 		"@wordpress/env": "^10.31.0"
 	},
 	"scripts": {
@@ -12,6 +14,8 @@
 		"env:stop": "wp-env stop",
 		"env:destroy": "wp-env destroy",
 		"env:cli": "wp-env run cli wp",
-		"test:integration": "wp-env run tests-cli --env-cwd=wp-content/plugins/ten-out-of-ten-no-notes vendor/bin/phpunit -c phpunit-integration.xml.dist"
+		"test:integration": "wp-env run tests-cli --env-cwd=wp-content/plugins/ten-out-of-ten-no-notes vendor/bin/phpunit -c phpunit-integration.xml.dist",
+		"test:e2e": "playwright test",
+		"test:e2e:ui": "playwright test --ui"
 	}
 }
