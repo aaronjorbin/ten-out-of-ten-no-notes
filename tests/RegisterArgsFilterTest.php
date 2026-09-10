@@ -3,7 +3,7 @@
  * Tests for the `register_post_type_args` filter — Notes stripped as a post type
  * is registered.
  *
- * @package Tototen_No_Notes
+ * @package TenOutOfTen_No_Notes
  */
 
 /**
@@ -63,7 +63,7 @@ final class RegisterArgsFilterTest extends NoNotesTestCase {
 
 	public function test_filter_keeps_notes_for_an_opted_out_post_type(): void {
 		add_filter(
-			'tototen_no_notes_disabled_for_post_type',
+			'tenoutoften_no_notes_disabled_for_post_type',
 			static function ( bool $disabled, string $post_type ): bool {
 				return 'keep_notes' === $post_type ? false : $disabled;
 			},

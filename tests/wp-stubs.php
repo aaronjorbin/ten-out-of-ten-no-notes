@@ -7,7 +7,7 @@
  * so the shapes they produce match core exactly. register_post_type() mirrors the
  * relevant parts of WP_Post_Type::set_props() / ::add_supports().
  *
- * @package Tototen_No_Notes
+ * @package TenOutOfTen_No_Notes
  */
 
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Intentionally shadowing core functions.
@@ -26,7 +26,7 @@ $GLOBALS['__wp_is_rest']           = false;
  *
  * @return void
  */
-function tototen_test_reset() {
+function tenoutoften_test_reset() {
 	$GLOBALS['_wp_post_type_features'] = array();
 	$GLOBALS['__wp_hooks']             = array();
 	$GLOBALS['__wp_post_types']        = array();

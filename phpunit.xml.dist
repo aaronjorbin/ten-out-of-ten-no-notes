@@ -17,7 +17,7 @@
 	</testsuites>
 	<coverage>
 		<include>
-			<file>10-10-no-notes.php</file>
+			<file>ten-out-of-ten-no-notes.php</file>
 		</include>
 	</coverage>
 </phpunit>

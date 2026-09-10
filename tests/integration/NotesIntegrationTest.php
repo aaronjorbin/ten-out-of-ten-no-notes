@@ -6,7 +6,7 @@
  * REST comments controller code paths, so a change to how core gates Notes would
  * break them.
  *
- * @package Tototen_No_Notes
+ * @package TenOutOfTen_No_Notes
  */
 
 /**
@@ -61,48 +61,48 @@ class NotesIntegrationTest extends WP_UnitTestCase {
 
 	public function test_custom_post_type_registered_with_notes_is_stripped() {
 		register_post_type(
-			'tototen_book',
+			'tenoutoften_book',
 			array(
 				'public'   => true,
 				'supports' => array( 'title', 'editor' => array( 'notes' => true ) ),
 			)
 		);
 
-		$this->assertFalse( $this->post_type_allows_notes( 'tototen_book' ) );
+		$this->assertFalse( $this->post_type_allows_notes( 'tenoutoften_book' ) );
 
-		unregister_post_type( 'tototen_book' );
+		unregister_post_type( 'tenoutoften_book' );
 	}
 
 	public function test_filter_opts_a_post_type_back_in() {
 		add_filter(
-			'tototen_no_notes_disabled_for_post_type',
+			'tenoutoften_no_notes_disabled_for_post_type',
 			static function ( $disabled, $post_type ) {
-				return 'tototen_kept' === $post_type ? false : $disabled;
+				return 'tenoutoften_kept' === $post_type ? false : $disabled;
 			},
 			10,
 			2
 		);
 
 		register_post_type(
-			'tototen_kept',
+			'tenoutoften_kept',
 			array(
 				'public'   => true,
 				'supports' => array( 'editor' => array( 'notes' => true ) ),
 			)
 		);
 		register_post_type(
-			'tototen_stripped',
+			'tenoutoften_stripped',
 			array(
 				'public'   => true,
 				'supports' => array( 'editor' => array( 'notes' => true ) ),
 			)
 		);
 
-		$this->assertTrue( $this->post_type_allows_notes( 'tototen_kept' ), 'opted-out type keeps Notes' );
-		$this->assertFalse( $this->post_type_allows_notes( 'tototen_stripped' ), 'other types still stripped' );
+		$this->assertTrue( $this->post_type_allows_notes( 'tenoutoften_kept' ), 'opted-out type keeps Notes' );
+		$this->assertFalse( $this->post_type_allows_notes( 'tenoutoften_stripped' ), 'other types still stripped' );
 
-		unregister_post_type( 'tototen_kept' );
-		unregister_post_type( 'tototen_stripped' );
+		unregister_post_type( 'tenoutoften_kept' );
+		unregister_post_type( 'tenoutoften_stripped' );
 	}
 
 	public function test_late_add_post_type_support_is_swept_in_admin_context() {

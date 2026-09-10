@@ -3,7 +3,7 @@
  * Shared base test case: resets the WordPress shims and re-registers the plugin's
  * hooks before every test.
  *
- * @package Tototen_No_Notes
+ * @package TenOutOfTen_No_Notes
  */
 
 use PHPUnit\Framework\TestCase;
@@ -15,8 +15,8 @@ abstract class NoNotesTestCase extends TestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-		tototen_test_reset();
-		tototen_no_notes_register_hooks();
+		tenoutoften_test_reset();
+		tenoutoften_no_notes_register_hooks();
 	}
 
 	/**

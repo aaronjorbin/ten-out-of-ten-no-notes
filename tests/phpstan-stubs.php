@@ -3,7 +3,7 @@
  * Stub for the test-only helper defined in tests/wp-stubs.php, which PHPStan does
  * not analyse (it deliberately shadows WordPress core functions).
  *
- * @package Tototen_No_Notes
+ * @package TenOutOfTen_No_Notes
  */
 
 /**
@@ -11,4 +11,4 @@
  *
  * @return void
  */
-function tototen_test_reset() {}
+function tenoutoften_test_reset() {}

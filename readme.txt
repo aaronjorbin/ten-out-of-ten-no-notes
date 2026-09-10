@@ -29,11 +29,11 @@ deactivate to turn them back on.
 = Keeping Notes for some post types =
 
 Perfect scores are overrated. If you want Notes on for a post type or two —
-call it a solid 9/10, some notes — use the `tototen_no_notes_disabled_for_post_type`
+call it a solid 9/10, some notes — use the `tenoutoften_no_notes_disabled_for_post_type`
 filter and return `false` for those types:
 
     add_filter(
-        'tototen_no_notes_disabled_for_post_type',
+        'tenoutoften_no_notes_disabled_for_post_type',
         function ( $disabled, $post_type ) {
             // Keep Notes for the "briefing" post type, disable everywhere else.
             return 'briefing' === $post_type ? false : $disabled;
@@ -52,7 +52,7 @@ feature and every existing note.
 
 = Can I keep Notes on for one post type? =
 
-Yes — use the `tototen_no_notes_disabled_for_post_type` filter (see above).
+Yes — use the `tenoutoften_no_notes_disabled_for_post_type` filter (see above).
 
 = A post type still has Notes even though the plugin is active =
 
@@ -62,7 +62,7 @@ that — for example on `wp_loaded`, `admin_init`, or `rest_api_init` — the sw
 has already been and gone, so Notes come back for that type. Post types that are
 *registered* late are still handled, because the `register_post_type_args` filter
 runs inside every `register_post_type()` call. If you hit this, disable the other
-extension's late call or re-run `tototen_no_notes_sweep_post_types()` after it.
+extension's late call or re-run `tenoutoften_no_notes_sweep_post_types()` after it.
 
 == Development ==
 
@@ -95,7 +95,7 @@ trunk on every push and pull request.
 == Changelog ==
 
 = 1.1.0 =
-* Add the `tototen_no_notes_disabled_for_post_type` filter to keep Notes for
+* Add the `tenoutoften_no_notes_disabled_for_post_type` filter to keep Notes for
   specific post types.
 * Skip the `init` sweep on front-end and cron requests, where Notes support is
   never read.

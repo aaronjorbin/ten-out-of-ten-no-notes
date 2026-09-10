@@ -6,7 +6,7 @@ includes:
 parameters:
 	level: max
 	paths:
-		- 10-10-no-notes.php
+		- ten-out-of-ten-no-notes.php
 		- tests
 	excludePaths:
 		analyse:

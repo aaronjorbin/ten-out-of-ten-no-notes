@@ -25,8 +25,7 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="tototen_no_notes"/>
-				<element value="tototen_test"/>
+				<element value="tenoutoften"/>
 			</property>
 		</properties>
 	</rule>
@@ -34,7 +33,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="10-10-no-notes"/>
+				<element value="tenoutoften"/>
 			</property>
 		</properties>
 	</rule>

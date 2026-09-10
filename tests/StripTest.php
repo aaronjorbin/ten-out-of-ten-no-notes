@@ -1,14 +1,14 @@
 <?php
 /**
- * Unit tests for tototen_no_notes_strip().
+ * Unit tests for tenoutoften_no_notes_strip().
  *
- * @package Tototen_No_Notes
+ * @package TenOutOfTen_No_Notes
  */
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * Covers tototen_no_notes_strip().
+ * Covers tenoutoften_no_notes_strip().
  */
 final class StripTest extends TestCase {
 
@@ -19,7 +19,7 @@ final class StripTest extends TestCase {
 	 * @param mixed $expected Expected return.
 	 */
 	public function test_strip( $input, $expected ): void {
-		$this->assertSame( $expected, tototen_no_notes_strip( $input ) );
+		$this->assertSame( $expected, tenoutoften_no_notes_strip( $input ) );
 	}
 
 	/**

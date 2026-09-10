@@ -10,9 +10,9 @@
  * Author URI:        https://aaron.jorb.in
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       10-10-no-notes
+ * Text Domain:       tenoutoften
  *
- * @package Tototen_No_Notes
+ * @package TenOutOfTen_No_Notes
  */
 
 // @codeCoverageIgnoreStart
@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param mixed $editor_support The current `editor` support value.
  * @return mixed The support value with any "notes" flag removed.
  */
-function tototen_no_notes_strip( $editor_support ) {
+function tenoutoften_no_notes_strip( $editor_support ) {
 	if ( ! is_array( $editor_support ) ) {
 		return $editor_support;
 	}
@@ -57,7 +57,7 @@ function tototen_no_notes_strip( $editor_support ) {
  * @param string $post_type Post type key.
  * @return bool
  */
-function tototen_no_notes_disabled_for( $post_type ) {
+function tenoutoften_no_notes_disabled_for( $post_type ) {
 	/**
 	 * Filters whether "10/10 - No Notes" strips Notes support from a post type.
 	 *
@@ -70,7 +70,7 @@ function tototen_no_notes_disabled_for( $post_type ) {
 	 * @param bool   $disabled  Whether to strip "notes" editor support. Default true.
 	 * @param string $post_type Post type key.
 	 */
-	return (bool) apply_filters( 'tototen_no_notes_disabled_for_post_type', true, $post_type );
+	return (bool) apply_filters( 'tenoutoften_no_notes_disabled_for_post_type', true, $post_type );
 }
 
 /**
@@ -83,12 +83,12 @@ function tototen_no_notes_disabled_for( $post_type ) {
  * @param string               $post_type Post type key.
  * @return array<string, mixed> Filtered arguments.
  */
-function tototen_no_notes_filter_register_args( $args, $post_type ) {
+function tenoutoften_no_notes_filter_register_args( $args, $post_type ) {
 	if (
 		isset( $args['supports'] ) && is_array( $args['supports'] ) && isset( $args['supports']['editor'] )
-		&& tototen_no_notes_disabled_for( (string) $post_type )
+		&& tenoutoften_no_notes_disabled_for( (string) $post_type )
 	) {
-		$args['supports']['editor'] = tototen_no_notes_strip( $args['supports']['editor'] );
+		$args['supports']['editor'] = tenoutoften_no_notes_strip( $args['supports']['editor'] );
 	}
 
 	return $args;
@@ -104,7 +104,7 @@ function tototen_no_notes_filter_register_args( $args, $post_type ) {
  *
  * @return bool
  */
-function tototen_no_notes_is_relevant_request() {
+function tenoutoften_no_notes_is_relevant_request() {
 	return is_admin()
 		|| wp_is_serving_rest_request()
 		|| ( defined( 'WP_CLI' ) && WP_CLI );
@@ -118,8 +118,8 @@ function tototen_no_notes_is_relevant_request() {
  *
  * @return void
  */
-function tototen_no_notes_sweep_post_types() {
-	if ( ! tototen_no_notes_is_relevant_request() ) {
+function tenoutoften_no_notes_sweep_post_types() {
+	if ( ! tenoutoften_no_notes_is_relevant_request() ) {
 		return;
 	}
 
@@ -135,11 +135,11 @@ function tototen_no_notes_sweep_post_types() {
 	}
 
 	foreach ( $_wp_post_type_features as $type => $features ) {
-		if ( ! isset( $features['editor'] ) || ! tototen_no_notes_disabled_for( (string) $type ) ) {
+		if ( ! isset( $features['editor'] ) || ! tenoutoften_no_notes_disabled_for( (string) $type ) ) {
 			continue;
 		}
 
-		$stripped = tototen_no_notes_strip( $features['editor'] );
+		$stripped = tenoutoften_no_notes_strip( $features['editor'] );
 
 		if ( $stripped !== $features['editor'] ) {
 			/*
@@ -158,11 +158,11 @@ function tototen_no_notes_sweep_post_types() {
  *
  * @return void
  */
-function tototen_no_notes_register_hooks() {
-	add_filter( 'register_post_type_args', 'tototen_no_notes_filter_register_args', 99, 2 );
-	add_action( 'init', 'tototen_no_notes_sweep_post_types', PHP_INT_MAX );
+function tenoutoften_no_notes_register_hooks() {
+	add_filter( 'register_post_type_args', 'tenoutoften_no_notes_filter_register_args', 99, 2 );
+	add_action( 'init', 'tenoutoften_no_notes_sweep_post_types', PHP_INT_MAX );
 }
 
 // @codeCoverageIgnoreStart
-tototen_no_notes_register_hooks();
+tenoutoften_no_notes_register_hooks();
 // @codeCoverageIgnoreEnd
