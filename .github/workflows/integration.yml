@@ -1,0 +1,50 @@
+name: Integration
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  wordpress:
+    name: WordPress ${{ matrix.wordpress }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        wordpress: ['latest', 'trunk']
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          tools: composer
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install wp-env
+        run: npm install
+
+      - name: Target WordPress trunk
+        if: matrix.wordpress == 'trunk'
+        run: echo '{"core":"WordPress/WordPress#master"}' > .wp-env.override.json
+
+      - name: Start WordPress
+        run: npx wp-env start
+
+      - name: Run integration tests
+        run: npm run test:integration
+
+      - name: Stop WordPress
+        if: always()
+        run: npx wp-env stop

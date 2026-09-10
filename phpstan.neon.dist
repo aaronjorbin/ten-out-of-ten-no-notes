@@ -12,6 +12,8 @@ parameters:
 		analyse:
 			# Deliberately shadows WordPress core functions; not analysable.
 			- tests/wp-stubs.php
+			# Needs the WordPress test-suite classes; only ever runs inside wp-env.
+			- tests/integration
 	stubFiles:
 		- tests/phpstan-stubs.php
 	scanDirectories:

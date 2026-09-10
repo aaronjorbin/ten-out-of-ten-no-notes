@@ -2,6 +2,9 @@
 	"$schema": "https://raw.githubusercontent.com/WordPress/gutenberg/trunk/schemas/json/wp-env.json",
 	"core": null,
 	"plugins": [ "." ],
+	"mappings": {
+		"wp-content/plugins/ten-out-of-ten-no-notes": "."
+	},
 	"port": 60987,
 	"testsPort": 60988,
 	"config": {
