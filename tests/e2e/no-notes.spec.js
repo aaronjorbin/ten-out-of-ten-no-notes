@@ -68,5 +68,43 @@ test.describe( '10/10 - No Notes', () => {
 
 			await expect( addNote ).toBeVisible();
 		} );
+
+		test( '"Add note" stays hidden for other post types', async ( {
+			admin,
+			editor,
+			page,
+		} ) => {
+			// The fixture only opts `post` back in; pages are still covered.
+			await admin.createNewPost( { postType: 'page' } );
+
+			const addNote = await addNoteMenuItem( { editor, page } );
+
+			await expect( addNote ).toHaveCount( 0 );
+
+			// Sanity check: the block options menu did open.
+			await expect(
+				page.getByRole( 'menuitem', { name: /Duplicate/i } )
+			).toBeVisible();
+		} );
 	} );
+
+	test.describe( 'when not active, notes are offered', () => {
+		test.beforeAll( async ( { requestUtils } ) => {
+			await requestUtils.deactivatePlugin( NO_NOTES_PLUGIN );
+		} );
+
+		test.afterAll( async ( { requestUtils } ) => {
+			await requestUtils.activatePlugin( NO_NOTES_PLUGIN );
+		} );
+
+		test( '"Add note" is offered for posts', async ( {
+			editor,
+			page,
+		} ) => {
+			const addNote = await addNoteMenuItem( { editor, page } );
+
+			await expect( addNote ).toBeVisible();
+		} );
+	} );
+
 } );
