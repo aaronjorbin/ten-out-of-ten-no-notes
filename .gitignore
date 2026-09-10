@@ -1,0 +1,22 @@
+# Dependencies
+/node_modules/
+/vendor/
+
+# Local env
+.wp-env.override.json
+
+# Build / tooling
+/build/
+.phpunit.result.cache
+.phpunit.cache/
+.phpcs.cache
+phpstan.neon
+phpcs.xml
+phpunit.xml
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/

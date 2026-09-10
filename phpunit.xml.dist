@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+	bootstrap="tests/bootstrap.php"
+	colors="true"
+	failOnWarning="true"
+	failOnRisky="true"
+	beStrictAboutOutputDuringTests="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+>
+	<testsuites>
+		<testsuite name="10-10-no-notes">
+			<directory suffix="Test.php">tests</directory>
+		</testsuite>
+	</testsuites>
+	<coverage>
+		<include>
+			<file>10-10-no-notes.php</file>
+		</include>
+	</coverage>
+</phpunit>

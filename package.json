@@ -1,0 +1,16 @@
+{
+	"name": "ten-out-of-ten-no-notes",
+	"version": "1.0.0",
+	"description": "Disables the block editor Notes feature added in WordPress 6.9.",
+	"license": "GPL-2.0-or-later",
+	"private": true,
+	"devDependencies": {
+		"@wordpress/env": "^10.31.0"
+	},
+	"scripts": {
+		"env:start": "wp-env start",
+		"env:stop": "wp-env stop",
+		"env:destroy": "wp-env destroy",
+		"env:cli": "wp-env run cli wp"
+	}
+}

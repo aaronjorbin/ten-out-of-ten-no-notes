@@ -1,0 +1,19 @@
+includes:
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+	- vendor/phpstan/phpstan-phpunit/rules.neon
+
+parameters:
+	level: max
+	paths:
+		- 10-10-no-notes.php
+		- tests
+	excludePaths:
+		analyse:
+			# Deliberately shadows WordPress core functions; not analysable.
+			- tests/wp-stubs.php
+	stubFiles:
+		- tests/phpstan-stubs.php
+	scanDirectories:
+		- vendor/phpunit/phpunit/src
+	treatPhpDocTypesAsCertain: false
