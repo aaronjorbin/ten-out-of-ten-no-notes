@@ -18,6 +18,8 @@
 $GLOBALS['_wp_post_type_features'] = array();
 $GLOBALS['__wp_hooks']             = array();
 $GLOBALS['__wp_post_types']        = array();
+$GLOBALS['__wp_is_admin']          = true;
+$GLOBALS['__wp_is_rest']           = false;
 
 /**
  * Reset all shim state. Call from a test's setUp().
@@ -28,6 +30,16 @@ function tototen_test_reset() {
 	$GLOBALS['_wp_post_type_features'] = array();
 	$GLOBALS['__wp_hooks']             = array();
 	$GLOBALS['__wp_post_types']        = array();
+	$GLOBALS['__wp_is_admin']          = true;
+	$GLOBALS['__wp_is_rest']           = false;
+}
+
+function is_admin() {
+	return (bool) $GLOBALS['__wp_is_admin'];
+}
+
+function wp_is_serving_rest_request() {
+	return (bool) $GLOBALS['__wp_is_rest'];
 }
 
 /*

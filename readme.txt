@@ -4,38 +4,65 @@ Tags: notes, block editor, collaboration, disable
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Disables the block editor Notes feature added in WordPress 6.9.
+Disables the ability to add Notes, the block editor feature added in WordPress 6.9.
 
 == Description ==
 
 WordPress 6.9 added Notes, block-level editorial comments in the post editor.
 This plugin removes the "notes" editor support from every post type, so the
-Notes UI no longer appears anywhere in the editor.
+Notes UI no longer appears in the editor and the REST API stops accepting new
+notes.
 
-It uses two hooks for full coverage:
+It uses two hooks:
 
-* `register_post_type_args` strips the flag as post types are registered.
-* A late `init` sweep catches post types that other plugins or themes add
-  Notes support to after registration.
+* `register_post_type_args` strips the flag as each post type is registered.
+* A late `init` sweep catches post types that another plugin or theme adds
+  Notes support to *after* registration.
 
-The plugin has no settings. Activate it to turn Notes off; deactivate to turn
-it back on.
+Out of the box the plugin has no settings — activate it to turn Notes off,
+deactivate to turn them back on.
+
+= Keeping Notes for some post types =
+
+Perfect scores are overrated. If you want Notes on for a post type or two —
+call it a solid 9/10, some notes — use the `tototen_no_notes_disabled_for_post_type`
+filter and return `false` for those types:
+
+    add_filter(
+        'tototen_no_notes_disabled_for_post_type',
+        function ( $disabled, $post_type ) {
+            // Keep Notes for the "briefing" post type, disable everywhere else.
+            return 'briefing' === $post_type ? false : $disabled;
+        },
+        10,
+        2
+    );
 
 == Frequently Asked Questions ==
 
 = Does this delete my existing notes? =
 
-No. Notes are stored as comments with the type `note`. This plugin only hides
-the editor feature; it never touches comment data. Deactivating restores the
-feature and any existing notes.
+No. Notes are stored as comments with the type `note`. This plugin only removes
+the editor support; it never touches comment data. Deactivating restores the
+feature and every existing note.
 
 = Can I keep Notes on for one post type? =
 
-Not in this version. The plugin is a hard off switch for all post types.
+Yes — use the `tototen_no_notes_disabled_for_post_type` filter (see above).
+
+= A post type still has Notes even though the plugin is active =
+
+The `init` sweep runs once, at priority `PHP_INT_MAX`. If another plugin or theme
+calls `add_post_type_support( $type, 'editor', array( 'notes' => true ) )` *after*
+that — for example on `wp_loaded`, `admin_init`, or `rest_api_init` — the sweep
+has already been and gone, so Notes come back for that type. Post types that are
+*registered* late are still handled, because the `register_post_type_args` filter
+runs inside every `register_post_type()` call. If you hit this, disable the other
+extension's late call or re-run `tototen_no_notes_sweep_post_types()` after it.
 
 == Development ==
 
@@ -49,30 +76,32 @@ this plugin active:
     Tests: http://localhost:60988
     WP-CLI: npm run env:cli -- <command>
 
-Install dev dependencies and run the test suite:
+Unit tests (WordPress shims, no install needed) plus coding standards and static
+analysis. The dev tooling (PHPUnit 9, PHPCS, PHPStan) needs PHP 7.4 or newer:
 
     composer install
-    composer test
+    composer check          # lint + analyze + test
+    composer coverage       # line coverage (needs Xdebug, PCOV, or phpdbg)
 
-Line coverage (requires Xdebug, PCOV, or phpdbg):
+Integration tests run inside wp-env against real WordPress:
 
-    composer coverage
+    npm run env:start
+    npm run test:integration
 
-The dev tooling (PHPUnit 9, PHPCS, PHPStan) needs PHP 7.4 or newer to run.
-
-Coding standards (full WordPress ruleset + PHP cross-version compatibility) and
-static analysis (PHPStan, level max):
-
-    composer lint
-    composer analyze
-    composer check   # lint + analyze + test
-
-The suite runs against a small faithful set of WordPress shims (`tests/wp-stubs.php`),
-whose post-type-support functions are copied verbatim from `wp-includes/post.php`,
-so no WordPress install is needed. Behaviour was also verified end to end against a
-real WordPress build.
+GitHub Actions runs the unit suite (PHP 7.4–8.3), coding standards, static
+analysis, and the integration tests against both the latest stable WordPress and
+trunk on every push and pull request.
 
 == Changelog ==
+
+= 1.1.0 =
+* Add the `tototen_no_notes_disabled_for_post_type` filter to keep Notes for
+  specific post types.
+* Skip the `init` sweep on front-end and cron requests, where Notes support is
+  never read.
+* Add a WordPress integration test suite and GitHub Actions (latest + trunk).
+* Reworded the description: the plugin disables *adding* Notes; existing note
+  comments are untouched.
 
 = 1.0.0 =
 * Initial release.

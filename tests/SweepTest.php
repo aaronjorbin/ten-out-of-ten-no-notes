@@ -78,4 +78,43 @@ final class SweepTest extends NoNotesTestCase {
 
 		$this->assertSame( 'unexpected', $GLOBALS['_wp_post_type_features'] );
 	}
+
+	public function test_sweep_bails_on_front_end_requests(): void {
+		$GLOBALS['__wp_is_admin'] = false;
+		$GLOBALS['__wp_is_rest']  = false;
+		add_post_type_support( 'post', 'editor', array( 'notes' => true ) );
+
+		do_action( 'init' );
+
+		// Nothing reads Notes support on the front end, so the sweep leaves it be.
+		$this->assertSame( array( array( 'notes' => true ) ), $this->editor_support( 'post' ) );
+	}
+
+	public function test_sweep_runs_during_rest_requests(): void {
+		$GLOBALS['__wp_is_admin'] = false;
+		$GLOBALS['__wp_is_rest']  = true;
+		add_post_type_support( 'post', 'editor', array( 'notes' => true ) );
+
+		do_action( 'init' );
+
+		$this->assertSame( array( array() ), $this->editor_support( 'post' ) );
+	}
+
+	public function test_filter_keeps_notes_for_an_opted_out_post_type(): void {
+		add_filter(
+			'tototen_no_notes_disabled_for_post_type',
+			static function ( bool $disabled, string $post_type ): bool {
+				return 'keep_notes' === $post_type ? false : $disabled;
+			},
+			10,
+			2
+		);
+		add_post_type_support( 'keep_notes', 'editor', array( 'notes' => true ) );
+		add_post_type_support( 'strip_notes', 'editor', array( 'notes' => true ) );
+
+		do_action( 'init' );
+
+		$this->assertSame( array( array( 'notes' => true ) ), $this->editor_support( 'keep_notes' ) );
+		$this->assertSame( array( array() ), $this->editor_support( 'strip_notes' ) );
+	}
 }

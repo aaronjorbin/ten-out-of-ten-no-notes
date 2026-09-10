@@ -61,6 +61,23 @@ final class RegisterArgsFilterTest extends NoNotesTestCase {
 		$this->assertTrue( post_type_supports( 'plain', 'editor' ) );
 	}
 
+	public function test_filter_keeps_notes_for_an_opted_out_post_type(): void {
+		add_filter(
+			'tototen_no_notes_disabled_for_post_type',
+			static function ( bool $disabled, string $post_type ): bool {
+				return 'keep_notes' === $post_type ? false : $disabled;
+			},
+			10,
+			2
+		);
+
+		register_post_type( 'keep_notes', array( 'supports' => array( 'editor' => array( 'notes' => true ) ) ) );
+		register_post_type( 'strip_notes', array( 'supports' => array( 'editor' => array( 'notes' => true ) ) ) );
+
+		$this->assertTrue( $this->has_notes( $this->editor_support( 'keep_notes' ) ), 'opted-out type keeps notes' );
+		$this->assertFalse( $this->has_notes( $this->editor_support( 'strip_notes' ) ), 'other types still stripped' );
+	}
+
 	/**
 	 * @param array<int|string, mixed> $editor_support Stored editor support value.
 	 */

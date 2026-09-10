@@ -1,6 +1,6 @@
 {
 	"name": "aaronjorbin/ten-out-of-ten-no-notes",
-	"description": "Disables the block editor Notes feature added in WordPress 6.9.",
+	"description": "Disables the ability to add Notes, the block editor feature added in WordPress 6.9.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
 	"require": {
@@ -13,10 +13,12 @@
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
 		"phpstan/phpstan": "^2.1",
 		"szepeviktor/phpstan-wordpress": "^2.0",
-		"phpstan/phpstan-phpunit": "^2.0"
+		"phpstan/phpstan-phpunit": "^2.0",
+		"yoast/phpunit-polyfills": "^2.0"
 	},
 	"scripts": {
 		"test": "phpunit",
+		"test:integration": "phpunit -c phpunit-integration.xml.dist",
 		"coverage": "phpdbg -qrr ./vendor/bin/phpunit --coverage-text --coverage-html=build/coverage",
 		"lint": "phpcs",
 		"lint:fix": "phpcbf",

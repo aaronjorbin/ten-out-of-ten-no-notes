@@ -1,7 +1,7 @@
 {
 	"name": "ten-out-of-ten-no-notes",
-	"version": "1.0.0",
-	"description": "Disables the block editor Notes feature added in WordPress 6.9.",
+	"version": "1.1.0",
+	"description": "Disables the ability to add Notes, the block editor feature added in WordPress 6.9.",
 	"license": "GPL-2.0-or-later",
 	"private": true,
 	"devDependencies": {
@@ -11,6 +11,7 @@
 		"env:start": "wp-env start",
 		"env:stop": "wp-env stop",
 		"env:destroy": "wp-env destroy",
-		"env:cli": "wp-env run cli wp"
+		"env:cli": "wp-env run cli wp",
+		"test:integration": "wp-env run tests-cli --env-cwd=wp-content/plugins/ten-out-of-ten-no-notes vendor/bin/phpunit -c phpunit-integration.xml.dist"
 	}
 }
