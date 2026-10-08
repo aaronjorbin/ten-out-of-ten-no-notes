@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       10/10 - No Notes
+ * Plugin Name:       Ten Out Of Ten - No Notes
  * Plugin URI:        https://github.com/aaronjorbin/ten-out-of-ten-no-notes
  * Description:        Disables the ability to add Notes, the block editor feature added in WordPress 6.9, by removing the "notes" editor support from every post type. Existing note comments are left untouched.
  * Version:           1.1.0

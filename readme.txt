@@ -1,4 +1,4 @@
-=== 10/10 - No Notes ===
+=== Ten Out Of Ten - No Notes ===
 Contributors: aaronjorbin
 Tags: notes, block editor, collaboration, disable
 Requires at least: 6.9
