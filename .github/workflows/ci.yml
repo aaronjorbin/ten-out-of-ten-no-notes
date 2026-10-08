@@ -27,6 +27,24 @@ jobs:
 
       - run: composer analyze
 
+  plugin-check:
+    name: WordPress Plugin Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # Check the distributable plugin (honours export-ignore in .gitattributes).
+      - name: Build plugin
+        run: |
+          mkdir -p build/ten-out-of-ten-no-notes
+          git archive HEAD | tar -x -C build/ten-out-of-ten-no-notes
+
+      - name: Run Plugin Check
+        uses: WordPress/plugin-check-action@10857da14b6c2246d15402b3e69f777edcf8c12e # v1.1.9
+        with:
+          build-dir: ./build/ten-out-of-ten-no-notes
+          slug: ten-out-of-ten-no-notes
+
   unit:
     name: Unit tests (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
