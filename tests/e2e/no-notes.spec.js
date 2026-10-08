@@ -7,7 +7,7 @@
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 // Plugin slugs as @wordpress/e2e-test-utils derives them: paramCase( Plugin Name ).
-const NO_NOTES_PLUGIN = '10-10-no-notes';
+const NO_NOTES_PLUGIN = 'ten-out-of-ten-no-notes';
 const KEEP_NOTES_FIXTURE = 'no-notes-e2e-keep-notes';
 
 async function addNoteMenuItem( { editor, page } ) {
@@ -21,7 +21,7 @@ async function addNoteMenuItem( { editor, page } ) {
 	return page.getByRole( 'menuitem', { name: 'Add note' } );
 }
 
-test.describe( '10/10 - No Notes', () => {
+test.describe( 'Ten Out Of Ten - No Notes', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin( NO_NOTES_PLUGIN );
 		await requestUtils
