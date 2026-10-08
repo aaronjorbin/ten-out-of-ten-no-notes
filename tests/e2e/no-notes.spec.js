@@ -77,6 +77,12 @@ test.describe( '10/10 - No Notes', () => {
 			// The fixture only opts `post` back in; pages are still covered.
 			await admin.createNewPost( { postType: 'page' } );
 
+			// New pages open the "Choose a pattern" modal, which blocks the editor.
+			await page
+				.getByRole( 'dialog', { name: 'Choose a pattern' } )
+				.getByRole( 'button', { name: 'Close' } )
+				.click();
+
 			const addNote = await addNoteMenuItem( { editor, page } );
 
 			await expect( addNote ).toHaveCount( 0 );
